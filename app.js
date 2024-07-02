@@ -20,8 +20,7 @@ const groundRoutes = require('./Routes/playground');
 const reviewRoutes = require('./Routes/reviews');
 const userRoutes = require('./Routes/users');
 
-const DBurl = 'mongodb://127.0.0.1:27017/Project';
-// const DBurl = process.env.URL;
+const DBurl = process.env.URL;
 mongoose.connect(DBurl)
 .then(()=>{
     console.log("Database Connection Open!!");
