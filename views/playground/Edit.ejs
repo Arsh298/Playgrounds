@@ -1,0 +1,52 @@
+<% layout('/layouts/boilerplate.ejs') %>
+
+<div>
+    <h1 class="text-center">Edit Playground</h1>
+    <div class="col-6 offset-3 mb-3">
+        <form action="/<%= sport %>/<%= ground._id %>?_method=PUT" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Edit Title</label>
+                <input type="text" name="data[title]" id="title" class="form-control" value="<%= ground.title %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Edit Location</label>
+                <input type="text" name="data[location]" id="location" class="form-control" value="<%= ground.location %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Edit Price</label>
+                <div class="input-group">
+                    <span class="input-group-text">₹</span>
+                    <input type="number" name="data[price]" id="price" class="form-control" value="<%= ground.price %>" required>
+                    <span class="input-group-text">/hour</span>
+                  </div>
+            </div>
+            <div class="mb-3">
+                <label for="images" class="form-label">Add Image</label>
+                <input type="file" name="images" id="images" class="form-control" multiple>
+            </div>
+            <div class="mb-3">
+                <div>
+                    <% ground.images.forEach((img, i) => { %>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="deleteImages[]" value="<%= img.filename %>" id="flexRadioDefault<%=i%>">
+                            <label class="form-check-label" for="flexRadioDefault<%=i%>">Delete</label>
+                          </div>
+                        <img src="<%= img.url %>" class="img-thumbnail mb-2" alt="Image not found">
+                    <% }) %>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea type="text" rows="4" name="data[description]" id="description" class="form-control" required><%= ground.description %></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="contact" class="form-label">Contact</label>
+                <input type="number" name="data[contact]" id="contact" class="form-control" value="<%= ground.contact %>" required>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-info">Update</button>
+            </div>
+        </form>
+        <a href="/<%= sport %>/<%= ground._id %>">Back</a>
+    </div>
+</div>

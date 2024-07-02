@@ -1,0 +1,41 @@
+<% layout('/layouts/boilerplate.ejs') %>
+
+
+<div>
+    <h1 class="text-center">New Playground</h1>
+    <div class="col-6 offset-3">
+        <form action="/<%= sport %>" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Enter Title</label>
+                <input type="text" name="data[title]" id="title" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Enter Location</label>
+                <input type="text" name="data[location]" id="location" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Enter Price</label>
+                <div class="input-group">
+                    <span class="input-group-text">₹</span>
+                    <input type="number" name="data[price]" id="price" class="form-control" required>
+                    <span class="input-group-text">/hour</span>
+                  </div>
+            </div>
+            <div class="mb-3">
+                <label for="images" class="form-label">Upload Image</label>
+                <input type="file" name="images" id="images" class="form-control" required multiple>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea rows="4" type="text" name="data[description]" id="description" class="form-control" required ></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="contact" class="form-label">Contact</label>
+                <input type="number" name="data[contact]" id="contact" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Create</button>
+            </div>
+        </form>
+    </div>
+</div>

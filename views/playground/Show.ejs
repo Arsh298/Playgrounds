@@ -1,0 +1,67 @@
+<% layout('/layouts/boilerplate.ejs') %>
+
+<div class="row">
+    <div class="col-6">
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-inner">
+                <% ground.images.forEach((img, i) => { %>
+                    <div class="carousel-item <%= (i===0) ? 'active' : '' %>">
+                        <img src="<%= img.url %>" class="card-img-top" alt="Image not found">
+                    </div>
+                <% });%>
+            </div>
+            <% if(ground.images.length> 1) { %>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            <% } %>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <%= ground.title %>
+                </h5>
+                <p class="card-text">
+                    <%= ground.description %>
+                </p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <%= ground.location %>
+                </li>
+                <li class="list-group-item">₹<%= ground.price %>/hour</li>
+                <li class="list-group-item">Owned by <%= ground.author.username %>
+                </li>
+                <li class="list-group-item">Contact : <%= ground.contact %>
+                </li>
+            </ul>
+            <div class="card-body">
+                <% if(currUser && ground.author.equals(currUser._id)) { %>
+                    <a href="/<%= sport %>/<%= ground._id %>/edit" class="card-link btn btn-info">Edit</a>
+                    <form action="/<%= sport %>/<%= ground._id %>?_method=DELETE" method="post" class="d-inline">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                <% } %>
+                <a href="/<%= sport %>" class="card-link btn btn-warning">Back</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <% if(!currUser) { %>
+            <p>Log in to write a review</p>
+        <% } else if(edit){ %>
+            <%- include('../review/edit') %>
+        <% } else { %>
+            <%- include('../review/add') %>
+        <% } %>
+        <%- include('../review/view') %>
+    </div>
+</div>

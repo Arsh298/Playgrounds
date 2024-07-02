@@ -1,0 +1,25 @@
+<% layout('/layouts/boilerplate.ejs') %>
+
+<div class="d-flex justify-content-between mb-5">
+    <div>
+        <h1 class=" text-capitalize"><%= sport %> Grounds</h1>
+    </div>
+    <div>
+        <a href="/<%= sport %>/new" class="btn btn-primary">Add New</a>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4"> 
+    <% for(let g of allGrounds){ %>
+        <div class="col h-100">
+            <div class="card">
+                <img class="card-img-top indexImg" src="<%= g.images[0].url %>" class="card-img-top" alt="Image not found">
+                <div class="card-body">
+                    <h5 class="card-title"><%= g.title %></h5>
+                    <p class="card-text text-muted"><%= g.location %></p>
+                    <a href="/<%= sport %>/<%= g._id %>" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>

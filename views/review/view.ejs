@@ -1,0 +1,18 @@
+<hr>
+<div class="mt-1">
+    <h2>Reviews</h2>
+    <% for(let r of ground.reviews) { if(!(currUser && r.author.equals(currUser._id))) { %>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><b>
+                        <%= r.author.username %>
+                    </b></h5>
+                <p class="starability-result" data-rating="<%= r.rating %>">Rated: <%= r.rating %>s stars
+                </p>
+                <p class="card-text">
+                    <%= r.body %>
+                </p>
+            </div>
+        </div>
+    <% }} %>
+</div>
