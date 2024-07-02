@@ -1,10 +1,15 @@
+if(process.env.NODE_env !== 'production') {
+    require('dotenv').config();
+}
+
 const mongoose = require('mongoose');
-const {Football, Basketball} = require('../models/playground');
+const {Football, Basketball} = require('./models/playground');
 const axios = require('axios');
 
-mongoose.connect('mongodb://127.0.0.1:27017/Project')
+const DBurl = process.env.URL || 'mongodb://localhost:27017/Project';
+mongoose.connect(DBurl)
     .then(() => {
-        console.log("Connection Opened!!");
+        console.log("Connection Open!!");
     })
     .catch((err) => {
         console.log(err);
@@ -26,10 +31,10 @@ async function seedImg(collectionID) {
     }
 }
 
-const users = ['667712339e5c1381b6b9e050' ,'6677123d9e5c1381b6b9e058', '667712479e5c1381b6b9e060' ];
-const contacts = [987456321, 8452136874, 9457842651, 7548752149,845962314, 7541256328];
-const places = ["Mandi, HP", "Kurukshetra, Haryana", "Lucknow, UP", "Mumbai, Maharashtra", "Delhi, India", "Mirzapur, UP"];
-const titles = ["Wembley Stadium", "Old Trafford", "Anfield", "Villa Park", "Pride Park", "Falmer Stadium"]
+const users = ['668474f85f322bf4fe7875c3' ,'668475095f322bf4fe7875c6', '668475235f322bf4fe7875c9' ];
+const contacts = [987456301, 8452136874, 9407842651, 7548750149,845962314, 7541256328, 8461543249, 7412653894, 8846315981];
+const places = ["Mandi, Himachal Pradesh", "Kurukshetra, Haryana", "Lucknow, Uttar Pradesh", "Mumbai, Maharashtra", "Delhi, India", "Mirzapur, Uttar Pradesh", "Chandigarh, India", "Shimla, Himachal Pradesh",];
+const titles = ["Wembley Stadium", "Old Trafford", "Anfield", "Villa Park", "Pride Park", "Falmer Stadium", "Ball Arena", "Chase Center", "Spectrum Center"];
 
 const seedGround = async function(Sport, collectionID) {
     for (let i = 0; i < 15; i++) {
@@ -40,7 +45,7 @@ const seedGround = async function(Sport, collectionID) {
             title: `${rand(titles)}`,
             location: `${rand(places)}`,
             price: price,
-            description : "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos voluptas, veritatis tenetur libero nesciunt suscipit placeat odio numquam harum blanditiis repellendus. Molestias molestiae rem, debitis ratione nesciunt suscipit vel. Omnis.",
+            description : "Gibberish refers to speech or writing that is nonsensical, incoherent, or devoid of any recognizable meaning. It often consists of random syllables, words, or sounds strung together in a way that does not form logical or understandable sentences. Gibberish can be intentionally produced for humorous effect, as a form of playful communication, or as a method of avoiding detection or understanding by others.",
             author : rand(users),
             images : img,
             contact : rand(contacts)
@@ -48,7 +53,6 @@ const seedGround = async function(Sport, collectionID) {
         await f.save();
     }
 }
-
 
 const seedDB = async function() {
     await Football.deleteMany({});

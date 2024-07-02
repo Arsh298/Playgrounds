@@ -20,10 +20,10 @@ const groundRoutes = require('./Routes/playground');
 const reviewRoutes = require('./Routes/reviews');
 const userRoutes = require('./Routes/users');
 
-const DBurl = process.env.URL;
+const DBurl = process.env.URL || 'mongodb://localhost:27017/Project';
 mongoose.connect(DBurl)
 .then(()=>{
-    console.log("Database Connection Open!!");
+    console.log("Connected to Database");
 })
 .catch((err)=>{
     console.log(err);
@@ -37,11 +37,13 @@ app.use(methodOverride('_method'));
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,'public')));
 
+const secret = process.env.SECRET || 'pleasedontreadmysecret';
+
 const store = MongoStore.create({
     mongoUrl: DBurl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: 'thisshouldbeabettersecret!'
+        secret
     }
 });
 
@@ -52,12 +54,11 @@ store.on('error', function(e) {
 const sessionConfig = {
     store,
     name: "session",
-    secret : "IWontTellYouMySecret",
+    secret,
     resave : false,
     saveUninitialized : true,
     cookie : {
         httpOnly: true,
-        // secure: true,
         expires : Date.now() + 1000*60*60*24*7,
         maxAge : 1000*60*60*24*7
     }

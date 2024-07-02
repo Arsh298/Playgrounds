@@ -74,13 +74,11 @@ module.exports.editForm = async (req,res)=>{
         req.flash('error', "Cannon edit that playground");
         return res.redirect(`/${sport}`);
     }
-    console.log(ground);
     res.render('playground/Edit', {ground});
 };
 
 module.exports.deleteGround = async (req,res)=>{
     const {id, sport} = req.params;
-    console.log(req.params);
     let ground;
     if(sport === "football") {
         ground = await Football.findByIdAndDelete(id);
