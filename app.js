@@ -80,7 +80,7 @@ app.use((req,res,next) => {
 });
 
 app.get('/', (req,res)=>{
-    res.render('playground/home.ejs');
+    res.render('playground/Home');
 });
 
 app.use('/', userRoutes);
