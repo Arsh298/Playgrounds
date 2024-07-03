@@ -9,7 +9,7 @@ module.exports.index = async(req,res,next) => {
     } else if(sport === "basketball") {
         allGrounds = await Basketball.find({}).populate('author');
     } else {
-        req.flash('error', 'cannot find that sport');
+        // req.flash('error', 'cannot find that sport');
         return res.redirect('/');
     }
     res.render('playground/Index', {allGrounds});
